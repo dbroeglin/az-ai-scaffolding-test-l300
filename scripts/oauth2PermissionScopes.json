@@ -1,0 +1,16 @@
+{
+    "api": {
+        "oauth2PermissionScopes": [
+            {
+                "adminConsentDescription": "AI GBB scaffolding tool test",
+                "adminConsentDisplayName": "AI GBB scaffolding tool test",
+                "id": "82b64a34-ac61-4e2a-a9aa-bda145ef0de6",
+                "isEnabled": true,
+                "type": "User",
+                "userConsentDescription": "AI GBB scaffolding tool test",
+                "userConsentDisplayName": "AI GBB scaffolding tool test",
+                "value": "user_impersonation"
+            }
+        ]
+    }
+}
