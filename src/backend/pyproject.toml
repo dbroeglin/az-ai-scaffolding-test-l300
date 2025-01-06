@@ -1,0 +1,12 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Solution generated with the AI GBB Scaffolding tool test (l300) - Backend"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi ~=0.115.6",
+    "uvicorn ~=0.32.1",
+    "python-dotenv ~=1.0.1",
+    "aigbb-scaffolding-core",
+]

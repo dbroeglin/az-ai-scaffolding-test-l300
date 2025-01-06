@@ -1,3 +1,4 @@
+# see https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/azd-schema
 name: aigbb-scaffolding-test-l300
 services:
   backend:
@@ -6,12 +7,16 @@ services:
     host: containerapp
     docker:
       path: ./Dockerfile
+      remoteBuild: true
+      context: ../..
   frontend:
     language: python
     project: src/frontend
     host: containerapp
     docker:
       path: ./Dockerfile
+      remoteBuild: true
+      context: ../..
 hooks:
   preprovision:
   #  windows:

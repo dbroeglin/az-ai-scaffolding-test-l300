@@ -92,14 +92,15 @@ var tags = union(
 
 /* --------------------- Globally Unique Resource Names --------------------- */
 
-var _applicationInsightsName = !empty(applicationInsightsName) ? applicationInsightsName : take('${abbreviations.insightsComponents}${environmentName}', 255)
+var _applicationInsightsName = !empty(applicationInsightsName) ? applicationInsightsName : take('${abbreviations.insightsComponents}-${environmentName}', 255)
+var _logAnalyticsWorkspaceName = take('${abbreviations.operationalInsightsWorkspaces}-${environmentName}', 63)
   var _containerRegistryName = !empty(containerRegistryName)
     ? containerRegistryName
     : take('${abbreviations.containerRegistryRegistries}${take(alphaNumericEnvironmentName, 35)}${resourceToken}', 50)
-  var _keyVaultName = take('${abbreviations.keyVaultVaults}${alphaNumericEnvironmentName}${resourceToken}', 24)
+  var _keyVaultName = take('${abbreviations.keyVaultVaults}${environmentName}-${resourceToken}', 24)
   var _containerAppsEnvironmentName = !empty(containerAppsEnvironmentName)
     ? containerAppsEnvironmentName
-    : take('${abbreviations.appManagedEnvironments}${environmentName}', 60)
+    : take('${abbreviations.appManagedEnvironments}-${environmentName}-${resourceToken}', 60)
 
 /* ----------------------------- Resource Names ----------------------------- */
 
@@ -117,7 +118,7 @@ var _applicationInsightsName = !empty(applicationInsightsName) ? applicationInsi
 /* -------------------------------------------------------------------------- */
 
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
-  name: 'logAnalyticsWorkspace'
+  name: _logAnalyticsWorkspaceName
   location: location
   properties: {
     retentionInDays: 30
@@ -173,6 +174,7 @@ module keyVault 'br/public:avm/res/key-vault/vault:0.11.0' = {
     tags: tags
     name: _keyVaultName
     enableRbacAuthorization: true
+    enablePurgeProtection: false // enable in production to prevent accidental deletion
     roleAssignments: [
       {
         roleDefinitionIdOrName: 'Key Vault Secrets User'
@@ -199,6 +201,23 @@ module keyVault 'br/public:avm/res/key-vault/vault:0.11.0' = {
 }
 
 /* ------------------------------ Frontend App ------------------------------ */
+module frontendIdentity './modules/app/identity.bicep' = {
+  name: 'frontendIdentity'
+  scope: resourceGroup()
+  params: {
+    location: location
+    identityName: _frontendIdentityName
+  }
+}
+
+var keyvaultIdentities = authClientSecret != ''
+  ? {
+      'microsoft-provider-authentication-secret': {
+        keyVaultUrl: '${keyVault.outputs.uri}secrets/${authClientSecretName}'
+        identity: frontendIdentity.outputs.identityId
+      }
+    }
+  : {}
 
 module frontendApp 'modules/app/container-apps.bicep' = {
   name: 'frontend-container-app'
@@ -223,16 +242,11 @@ module frontendApp 'modules/app/container-apps.bicep' = {
       // Required for managed identity
       AZURE_CLIENT_ID: frontendIdentity.outputs.clientId
     }
-    keyvaultIdentities: {
-      'microsoft-provider-authentication-secret': {
-        keyVaultUrl: '${keyVault.outputs.uri}secrets/${authClientSecretName}'
-        identity: frontendIdentity.outputs.identityId
-      }
-    }
+    keyvaultIdentities: keyvaultIdentities
   }
 }
 
-module frontendContainerAppAuth 'modules/app/container-apps-auth.bicep' = {
+module frontendContainerAppAuth 'modules/app/container-apps-auth.bicep' = if (authClientSecret != '') {
   name: 'frontend-container-app-auth-module'
   params: {
     name: frontendApp.outputs.name
@@ -246,17 +260,15 @@ module frontendContainerAppAuth 'modules/app/container-apps-auth.bicep' = {
   }
 }
 
-module frontendIdentity './modules/app/identity.bicep' = {
-  name: 'frontendIdentity'
+/* ------------------------------ Backend App ------------------------------- */
+module backendIdentity './modules/app/identity.bicep' = {
+  name: 'backendIdentity'
   scope: resourceGroup()
   params: {
     location: location
-    identityName: _frontendIdentityName
+    identityName: _backendIdentityName
   }
 }
-
-
-/* ------------------------------ Backend App ------------------------------- */
 
 module backendApp 'modules/app/container-apps.bicep' = {
   name: 'backend-container-app'
@@ -285,7 +297,6 @@ module backendApp 'modules/app/container-apps.bicep' = {
     }
   }
 }
-
 module backendContainerAppAuth 'modules/app/container-apps-auth.bicep' = {
   name: 'backend-container-app-auth-module'
   params: {
@@ -306,14 +317,6 @@ module backendContainerAppAuth 'modules/app/container-apps-auth.bicep' = {
   }
 }
 
-module backendIdentity './modules/app/identity.bicep' = {
-  name: 'backendIdentity'
-  scope: resourceGroup()
-  params: {
-    location: location
-    identityName: _backendIdentityName
-  }
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                   OUTPUTS                                  */
