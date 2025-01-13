@@ -5,7 +5,7 @@
 FROM python:3.12-slim AS base
 
 ENV APP_NAME=backend
-ENV PACKAGE_NAME=aigbb-scaffolding-core
+ENV PACKAGE_NAME=az-ai-scaffolding-core
 
 ###############
 # Build stage #

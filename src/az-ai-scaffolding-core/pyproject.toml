@@ -1,0 +1,26 @@
+[project]
+name = "az-ai-scaffolding-core"
+version = "0.1.0"
+description = "Python package for Solution generated with the Az AI Scaffolding tool test (l300)"
+readme = "README.md"
+authors = [
+    { name = "Dominique Broeglin", email = "dominique.broeglin@microsoft.com" },
+]
+requires-python = ">=3.12"
+dependencies = [
+    "azure-ai-evaluation>=1.1.0",
+    "azure-ai-inference>=1.0.0b6",
+]
+
+# [project.scripts]
+# az-ai-scaffolding-core = "az_ai_scaffolding_core:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+]

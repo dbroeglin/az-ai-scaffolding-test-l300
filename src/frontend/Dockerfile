@@ -5,7 +5,7 @@
 FROM python:3.12-slim AS base
 
 ENV APP_NAME=frontend
-ENV PACKAGE_NAME=aigbb-scaffolding-core
+ENV PACKAGE_NAME=az-ai-scaffolding-core
 
 ###############
 # Build stage #
@@ -64,4 +64,3 @@ COPY --from=builder --chown=app:app /app/src/${APP_NAME} /app/src/${APP_NAME}
 
 EXPOSE 8000
 ENTRYPOINT ["/app/.venv/bin/streamlit", "run", "app.py", "--server.port=8000", "--server.address=0.0.0.0"]
-

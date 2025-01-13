@@ -11,21 +11,21 @@ if [ -z "$AZURE_AUTH_TENANT_ID" ]; then
 fi
 azd env set AZURE_AUTH_TENANT_ID "$AZURE_AUTH_TENANT_ID"
 
-APP_NAME="$AZURE_ENV_NAME-app"
+AZURE_CLIENT_APP_NAME="$AZURE_ENV_NAME-app"
 CURRENT_USER_UPN=$(az ad signed-in-user show --query userPrincipalName -o tsv)
 CURRENT_USER_ID=$(az ad user show --id "$CURRENT_USER_UPN" --query id --output tsv)
-AZURE_CLIENT_APP_ID=$(az ad app list --display-name "${APP_NAME}" --query '[].appId' -o tsv)
+AZURE_CLIENT_APP_ID=$(az ad app list --display-name "${AZURE_CLIENT_APP_NAME}" --query '[].appId' -o tsv)
 
 echo "Current user          : $CURRENT_USER_UPN"
 echo "Current tenant        : $AZURE_AUTH_TENANT_ID"
-echo "App Registration name : $APP_NAME"
+echo "App Registration name : $AZURE_CLIENT_APP_NAME"
 
 if [ -z "$AZURE_CLIENT_APP_ID" ];
 then
-    echo "Creating app $APP_NAME..."
+    echo "Creating app $AZURE_CLIENT_APP_NAME..."
     AZURE_APP_ID=$(
         az ad app create \
-            --display-name "$APP_NAME" \
+            --display-name "$AZURE_CLIENT_APP_NAME" \
             --web-redirect-uris http://localhost:5801/ \
             --query id \
             --output tsv
@@ -74,8 +74,9 @@ then
         --body @scripts/preAuthorizedApplications.json
 
     azd env set AZURE_CLIENT_APP_SECRET "$AZURE_CLIENT_APP_SECRET"
+    azd env set AZURE_CLIENT_APP_NAME "$AZURE_CLIENT_APP_NAME"
 
-    echo "App $APP_NAME created with ID $AZURE_CLIENT_APP_ID and SP ID $SERVICE_PRINCIPAL_ID"
+    echo "App $AZURE_CLIENT_APP_NAME created with ID $AZURE_CLIENT_APP_ID and SP ID $SERVICE_PRINCIPAL_ID"
 else
     echo -e "\033[3;33mApp '$AZURE_CLIENT_APP_ID' already exists, skipping creation\033[0m"
 fi

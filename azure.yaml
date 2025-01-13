@@ -1,5 +1,5 @@
 # see https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/azd-schema
-name: aigbb-scaffolding-test-l300
+name: az-ai-scaffolding-test-l300
 services:
   backend:
     language: python

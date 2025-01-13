@@ -1,9 +1,9 @@
 # Main pyproject.toml file for the project
 # See https://docs.astral.sh/uv/concepts/projects/layout/ for more information
 [project]
-name = "aigbb_scaffolding_test_l300"
+name = "az_ai_scaffolding_test_l300"
 version = "0.1.0"
-description = "Solution generated with the AI GBB Scaffolding tool test (l300)"
+description = "Solution generated with the Az AI Scaffolding tool test (l300)"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -17,7 +17,7 @@ members = ["src/*"]
 # exclude = ["src/excluded-package"]
 
 [tool.uv.sources]
-aigbb-scaffolding-core = { workspace = true }
+az-ai-scaffolding-core = { workspace = true }
 
 [tool.pytest.ini_options]
 #addopts = "-ra --cov"

@@ -1,13 +1,13 @@
-# Solution generated with the AI GBB Scaffolding tool test (l300)
+# Solution generated with the Az AI Scaffolding tool test (l300)
 
 ToC: [**USER STORY**](#user-story) \| [**GETTING STARTED**](#getting-started)  \| [**HOW IT WORKS**](#how-it-works)
 
 ## User story
 
-### AI GBB scaffolding tool test overview
+### Az AI scaffolding tool test overview
 
 > [!TIP] 
-> **AI GBB Tip**: Document what your solution does here.
+> **Az AI Tip**: Document what your solution does here.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ ToC: [**USER STORY**](#user-story) \| [**GETTING STARTED**](#getting-started)  \
 
 This respository has been configured to support GitHub Codespace and DevContainers.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dbroeglin/aigbb-scaffolding-test-l300) [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/dbroeglin/aigbb-scaffolding-test-l300)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dbroeglin/az-ai-scaffolding-test-l300) [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/dbroeglin/az-ai-scaffolding-test-l300)
 
 ### Local
 
@@ -28,13 +28,13 @@ It is possible to operate the fully local setup.
   - Optionally [Docker](https://www.docker.com/get-started/): `docker` 
 
 > [!TIP] 
-> **AI GBB Tip**: Document here how to quickly deploy the solution. Try to reduce this to `azd up` by
+> **Az AI Tip**: Document here how to quickly deploy the solution. Try to reduce this to `azd up` by
 > automating as much as possible. Have a look at `main.bicep` and `scripts` for examples of how to do
 > that
 
 ### Quick deploy
 
-To deploy AI GBB scaffolding tool test just run: 
+To deploy Az AI scaffolding tool test just run: 
 `azd up`
 
 > **WARNING** The application automatically configures authentication to secure frontend
@@ -50,18 +50,18 @@ To deploy AI GBB scaffolding tool test just run:
 
 - TODO : Obervability
 > [!TIP] 
-> **AI GBB Tip**: Document how the solution is used and operated here.
+> **Az AI Tip**: Document how the solution is used and operated here.
 > Optionally, if the section is too long, create a `USER_MANUAL.md` file and
 > link to it from here.
 
 ### Architecture
 > [!TIP] 
-> **AI GBB Tip**: Document the solution's architecture here.
+> **Az AI Tip**: Document the solution's architecture here.
 > Optionally, if the section is too long, create a `ARCHITECTURE.md` file and
 > link to it from here.
 
 > [!TIP] 
-> **AI GBB Tip**: For architecture diagrams, you can leverage the [Markdown text
+> **Az AI Tip**: For architecture diagrams, you can leverage the [Markdown text
 > diagramming capabilities](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams) available in GitHub. See example below.
 
 ```mermaid
