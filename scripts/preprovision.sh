@@ -86,7 +86,7 @@ if [[ "${WITH_AUTHENTICATION-}" =~ "true" ]]; then
 
     azd env set AZURE_CLIENT_APP_ID "$AZURE_CLIENT_APP_ID"
 
-    printf "  \033[32m➜\033[0m Application registration ${app_name} (${AZURE_CLIENT_APP_ID}) has been created.\n"
+    printf "    \033[32m➜\033[0m Application registration ${app_name} (${AZURE_CLIENT_APP_ID}) has been created.\n"
 
     # Credits: inspired by https://gpiskas.com/posts/automate-creation-app-registration-azure-cli/#creating-and-modifying-the-app-registration
 fi
