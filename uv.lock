@@ -3,38 +3,10 @@ requires-python = ">=3.12"
 
 [manifest]
 members = [
-    "aigbb-scaffolding-core",
     "az-ai-scaffolding-core",
     "az-ai-scaffolding-test-l300",
     "backend",
     "frontend",
-]
-
-[[package]]
-name = "aigbb-scaffolding-core"
-version = "0.1.0"
-source = { editable = "src/aigbb-scaffolding-core" }
-dependencies = [
-    { name = "azure-ai-evaluation" },
-    { name = "azure-ai-inference" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "pytest" },
-    { name = "pytest-cov" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "azure-ai-evaluation", specifier = ">=1.1.0" },
-    { name = "azure-ai-inference", specifier = ">=1.0.0b6" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8.3.4" },
-    { name = "pytest-cov", specifier = ">=6.0.0" },
 ]
 
 [[package]]
